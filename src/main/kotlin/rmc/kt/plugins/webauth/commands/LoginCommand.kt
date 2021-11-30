@@ -12,6 +12,7 @@ import rmc.kt.plugins.core.helpers.DbHelper
 import rmc.kt.plugins.core.helpers.LogHelper
 import rmc.kt.plugins.core.helpers.TaskHelper
 import rmc.kt.plugins.webauth.WebAuthPlugin
+import rmc.kt.plugins.webauth.events.PlayerLoggedInEvent
 import rmc.kt.plugins.webauth.helpers.AuthHelper
 import rmc.kt.plugins.webauth.helpers.WebHelper
 
@@ -47,6 +48,7 @@ class LoginCommand: CommandBase() {
             }
             AuthHelper.unregisterTaskIfActive(sender.name)
             AuthHelper.authorizeForMinute(sender.name, (sender as Player).address!!.hostString)
+            Bukkit.getPluginManager().callEvent(PlayerLoggedInEvent(sender.name, sender.address!!.hostString))
             sender.sendMessage(ChatHelper.format("&aВы вошли в аккаунт, приятной игры!"))
             LogHelper.debug("${sender.name} (ip: ${sender.address!!.hostString}) logged in through Web API")
             TaskHelper.asyncNow {
