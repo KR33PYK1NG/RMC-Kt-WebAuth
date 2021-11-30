@@ -112,7 +112,8 @@ class WebAuthPlugin: JavaPlugin() {
         val types = mutableListOf<PacketType>()
         for (type in PacketType.values()) {
             if (type.sender == PacketType.Sender.CLIENT
-                && type.protocol == PacketType.Protocol.PLAY) {
+                && type.protocol == PacketType.Protocol.PLAY
+                && type != PacketType.Play.Client.KEEP_ALIVE) {
                 types.add(type)
             }
         }
