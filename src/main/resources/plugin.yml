@@ -1,0 +1,6 @@
+name: "$rmcBaseName"
+version: "$rmcVersion"
+main: "rmc.kt.plugins.webauth.WebAuthPlugin"
+api-version: "1.16"
+depend: [ "RMC-Kt-Core", "ProtocolLib" ]
+softdepend: [ "Essentials" ]

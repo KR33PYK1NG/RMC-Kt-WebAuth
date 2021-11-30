@@ -1,0 +1,11 @@
+web:
+  api_key: "EDIT_ME"
+  base_url: "EDIT_ME"
+  http_timeout: 3000
+location:
+  world: "EDIT_ME"
+  x: 0.0
+  y: 64.0
+  z: 0.0
+  yaw: 0.0
+  pitch: 0.0
