@@ -25,7 +25,7 @@ class PlayerJoinListener: ListenerBase<PlayerJoinEvent>() {
                         AuthHelper.unregisterTaskIfActive(name)
                         AuthHelper.registerTask(name, TaskHelper.syncTimer(0, 20) {
                             count++
-                            if (count % 30 == 0) {
+                            if (count % WebAuthPlugin.loginTimeout == 0) {
                                 kickPlayer(ChatHelper.format("&cПрошло слишком много времени для авторизации!"))
                             }
                             if (count == 1 || count % 5 == 0) {

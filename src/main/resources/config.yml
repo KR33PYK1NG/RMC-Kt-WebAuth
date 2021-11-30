@@ -1,3 +1,4 @@
+login_timeout: 60
 web:
   api_key: "EDIT_ME"
   base_url: "EDIT_ME"

@@ -32,6 +32,7 @@ class WebAuthPlugin: JavaPlugin() {
 
     companion object {
 
+        @JvmStatic var loginTimeout = 0; private set
         @JvmStatic var webApiKey = ""; private set
         @JvmStatic var webBaseUrl = ""; private set
         @JvmStatic var webHttpTimeout = 0; private set
@@ -90,6 +91,7 @@ class WebAuthPlugin: JavaPlugin() {
 
     override fun onEnable() {
         saveDefaultConfig()
+        loginTimeout = config.get("login_timeout")!! as Int
         webApiKey = config.get("web.api_key")!! as String
         webBaseUrl = config.get("web.base_url")!! as String
         webHttpTimeout = config.get("web.http_timeout")!! as Int
