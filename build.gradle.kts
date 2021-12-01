@@ -3,7 +3,7 @@ val rmcRepoPass: String by project
 
 val rmcGroup = "rmc.kt.plugins"
 val rmcArtifact = "webauth"
-val rmcVersion = "1.0.4"
+val rmcVersion = "1.0.5"
 val rmcBaseName = "RMC-Kt-WebAuth"
 
 group = rmcGroup
@@ -63,7 +63,7 @@ repositories {
         setUrl("https://repo.dmulloy2.net/repository/public/") // ProtocolLib
     }
     maven {
-        setUrl("https://repo.essentialsx.net/releases/") // EssentialsX
+        setUrl("https://repo.essentialsx.net/snapshots/") // EssentialsX
     }
     maven {
         setUrl("https://repo.rus-minecraft.ru/maven/") // RMC-Kt-Core
@@ -78,6 +78,6 @@ dependencies {
     add("implementation", "org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.3.1")
     add("compileOnly", "org.spigotmc:spigot-api:1.18-rc3-R0.1-SNAPSHOT")
     add("compileOnly", "com.comphenix.protocol:ProtocolLib:4.7.0")
-    add("compileOnly", "net.essentialsx:EssentialsX:2.19.0")
+    add("compileOnly", "net.essentialsx:EssentialsX:2.19.1-SNAPSHOT")
     add("compileOnly", "rmc.kt.plugins:core:1.2.0")
 }

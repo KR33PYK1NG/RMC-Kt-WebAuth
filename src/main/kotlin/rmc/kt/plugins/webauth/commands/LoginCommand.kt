@@ -1,5 +1,6 @@
 package rmc.kt.plugins.webauth.commands
 
+import com.earth2me.essentials.IEssentials
 import com.earth2me.essentials.utils.LocationUtil
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -37,8 +38,8 @@ class LoginCommand: CommandBase() {
                                 row.get("yaw") as Float,
                                 row.get("pitch") as Float)
                             try {
-                                if (LocationUtil.isBlockUnsafe(lastpos.world, lastpos.blockX, lastpos.blockY, lastpos.blockZ)) {
-                                    lastpos = LocationUtil.getSafeDestination(lastpos)
+                                if (LocationUtil.isBlockUnsafe(Bukkit.getPluginManager().getPlugin("Essentials") as IEssentials, lastpos.world, lastpos.blockX, lastpos.blockY, lastpos.blockZ)) {
+                                    lastpos = LocationUtil.getSafeDestination(Bukkit.getPluginManager().getPlugin("Essentials") as IEssentials, lastpos)
                                 }
                             } catch (ignore: Throwable) {}
                             (sender as Player).teleport(lastpos)
