@@ -9,8 +9,15 @@ import org.bukkit.event.HandlerList
 @Deprecated("Only for newbie intro implementation!")
 class PlayerRegisteredEvent(val username: String, val ip: String): Event() {
 
-    override fun getHandlers(): HandlerList {
-        return HandlerList()
+    companion object {
+
+        val hlist = HandlerList()
+
+        @JvmStatic
+        fun getHandlerList() = hlist
+
     }
+
+    override fun getHandlers() = hlist
 
 }
