@@ -49,7 +49,7 @@ class AuthHelper {
                 while (iter.hasNext()) {
                     val entry = iter.next()
                     val player = Bukkit.getPlayerExact(entry.key.first)
-                    if (player != null && player.address!!.hostString == entry.key.second) {
+                    if (player != null && player.address!!.address.hostAddress == entry.key.second) {
                         extendAuthorization(entry.value)
                     } else if (isExpired(entry.value)) {
                         iter.remove()

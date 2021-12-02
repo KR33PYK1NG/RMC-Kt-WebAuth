@@ -17,7 +17,7 @@ class PlayerJoinListener: ListenerBase<PlayerJoinEvent>() {
 
     override fun onEvent(event: PlayerJoinEvent) {
         event.player.run {
-            if (!AuthHelper.isAuthorized(name, address!!.hostString)) {
+            if (!AuthHelper.isAuthorized(name, address!!.address.hostAddress)) {
                 TaskHelper.asyncNow {
                     val result = WebHelper.hasAccountGetRequestBlocking(name)
                     TaskHelper.syncNow {

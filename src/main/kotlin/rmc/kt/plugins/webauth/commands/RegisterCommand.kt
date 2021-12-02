@@ -21,10 +21,10 @@ class RegisterCommand: CommandBase() {
             WebHelper.registerGetRequestBlocking(sender.name, args[0])
         }, {
             AuthHelper.unregisterTaskIfActive(sender.name)
-            AuthHelper.authorizeForMinute(sender.name, (sender as Player).address!!.hostString)
-            Bukkit.getPluginManager().callEvent(PlayerRegisteredEvent(sender.name, sender.address!!.hostString))
+            AuthHelper.authorizeForMinute(sender.name, (sender as Player).address!!.address.hostAddress)
+            Bukkit.getPluginManager().callEvent(PlayerRegisteredEvent(sender.name, sender.address!!.address.hostAddress))
             sender.sendMessage(ChatHelper.format("&aВы зарегистрировались, приятной игры!"))
-            LogHelper.debug("${sender.name} (ip: ${sender.address!!.hostString}) registered through Web API")
+            LogHelper.debug("${sender.name} (ip: ${sender.address!!.address.hostAddress}) registered through Web API")
             sender.sendMessage(ChatHelper.format("&7У вас не указана почта. Пароль не получится восстановить при потере.\n" +
                                                  "Установите почту с помощью &e/email почта"))
         })

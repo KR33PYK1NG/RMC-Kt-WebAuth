@@ -12,7 +12,7 @@ class PlayerQuitListener: ListenerBase<PlayerQuitEvent>() {
 
     override fun onEvent(event: PlayerQuitEvent) {
         event.player.run {
-            if (AuthHelper.isAuthorized(name, address!!.hostString)) {
+            if (AuthHelper.isAuthorized(name, address!!.address.hostAddress)) {
                 WebAuthPlugin.savePlayerLastPos(this)
             } else {
                 AuthHelper.unregisterTaskIfActive(name)

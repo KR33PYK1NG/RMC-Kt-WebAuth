@@ -54,7 +54,7 @@ class WebAuthPlugin: JavaPlugin() {
                 sender.sendMessage(ChatHelper.format("&cИспользование: /$label $usage"))
                 return
             }
-            if (errorIfAuthIs == AuthHelper.isAuthorized(sender.name, sender.address!!.hostString)) {
+            if (errorIfAuthIs == AuthHelper.isAuthorized(sender.name, sender.address!!.address.hostAddress)) {
                 sender.sendMessage(ChatHelper.format(if (errorIfAuthIs) "&cВы уже авторизованы!" else "&cВы еще не авторизованы!"))
                 return
             }
@@ -120,7 +120,7 @@ class WebAuthPlugin: JavaPlugin() {
         ProtocolLibrary.getProtocolManager().addPacketListener(object: PacketAdapter(this, types) {
             override fun onPacketReceiving(event: PacketEvent?) {
                 event?.run {
-                    if (!AuthHelper.isAuthorized(player.name, player.address!!.hostString)) {
+                    if (!AuthHelper.isAuthorized(player.name, player.address!!.address.hostAddress)) {
                         if (packetType == PacketType.Play.Client.CHAT) {
                             val msg = (packet.strings.readSafely(0) ?: "").lowercase()
                             if (!msg.startsWith("/login")
@@ -136,7 +136,7 @@ class WebAuthPlugin: JavaPlugin() {
 
     override fun onDisable() {
         for (player in Bukkit.getOnlinePlayers()) {
-            if (AuthHelper.isAuthorized(player.name, player.address!!.hostString)) {
+            if (AuthHelper.isAuthorized(player.name, player.address!!.address.hostAddress)) {
                 savePlayerLastPos(player)
             }
         }

@@ -26,7 +26,7 @@ class AsyncPlayerPreLoginListener: ListenerBase<AsyncPlayerPreLoginEvent>() {
             }
         }
         val player = Bukkit.getPlayerExact(event.name)
-        if (player != null && AuthHelper.isAuthorized(player.name, player.address!!.hostString)) {
+        if (player != null && AuthHelper.isAuthorized(player.name, player.address!!.address.hostAddress)) {
             event.kickMessage = ChatHelper.format("&cПод ником &e${player.name} &cуже кто-то авторизован и играет!")
             event.loginResult = AsyncPlayerPreLoginEvent.Result.KICK_OTHER
         } else {

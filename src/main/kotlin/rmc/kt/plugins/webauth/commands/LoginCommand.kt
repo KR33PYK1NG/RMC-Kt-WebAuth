@@ -24,7 +24,7 @@ class LoginCommand: CommandBase() {
 
     override fun onCommand(sender: CommandSender, label: String, args: Array<String>) {
         WebAuthPlugin.handleCommandExecution(sender, args.size, label, "пароль", true, {
-            WebHelper.loginGetRequestBlocking(sender.name, args[0], (sender as Player).address!!.hostString)
+            WebHelper.loginGetRequestBlocking(sender.name, args[0], (sender as Player).address!!.address.hostAddress)
         }, {
             TaskHelper.asyncNow {
                 DbHelper.executeQueryBlocking({
@@ -48,10 +48,10 @@ class LoginCommand: CommandBase() {
                 }, "SELECT * FROM `${CorePlugin.serverName}`.`webauth_last_pos` WHERE `username` = ?;", sender.name)
             }
             AuthHelper.unregisterTaskIfActive(sender.name)
-            AuthHelper.authorizeForMinute(sender.name, (sender as Player).address!!.hostString)
-            Bukkit.getPluginManager().callEvent(PlayerLoggedInEvent(sender.name, sender.address!!.hostString))
+            AuthHelper.authorizeForMinute(sender.name, (sender as Player).address!!.address.hostAddress)
+            Bukkit.getPluginManager().callEvent(PlayerLoggedInEvent(sender.name, sender.address!!.address.hostAddress))
             sender.sendMessage(ChatHelper.format("&aВы вошли в аккаунт, приятной игры!"))
-            LogHelper.debug("${sender.name} (ip: ${sender.address!!.hostString}) logged in through Web API")
+            LogHelper.debug("${sender.name} (ip: ${sender.address!!.address.hostAddress}) logged in through Web API")
             TaskHelper.asyncNow {
                 val result = WebHelper.hasEmailGetRequestBlocking(sender.name)
                 TaskHelper.syncNow {
