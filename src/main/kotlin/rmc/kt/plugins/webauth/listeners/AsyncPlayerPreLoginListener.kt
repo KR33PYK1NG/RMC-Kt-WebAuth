@@ -4,8 +4,6 @@ import org.bukkit.Bukkit
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent
 import rmc.kt.plugins.core.base.ListenerBase
 import rmc.kt.plugins.core.helpers.ChatHelper
-import rmc.kt.plugins.core.helpers.LogHelper
-import rmc.kt.plugins.webauth.WebAuthPlugin
 import rmc.kt.plugins.webauth.helpers.AuthHelper
 import rmc.kt.plugins.webauth.helpers.WebHelper
 
@@ -15,16 +13,6 @@ import rmc.kt.plugins.webauth.helpers.WebHelper
 class AsyncPlayerPreLoginListener: ListenerBase<AsyncPlayerPreLoginEvent>() {
 
     override fun onEvent(event: AsyncPlayerPreLoginEvent) {
-        val gravit = WebAuthPlugin.tryFetchGravitAuths()
-        if (gravit.isNotEmpty()) {
-            synchronized(gravit) {
-                for (entry in gravit) {
-                    AuthHelper.authorizeForMinute(entry.key, entry.value)
-                    LogHelper.debug("${entry.key} (ip: ${entry.value}) logged in through GravitLauncher")
-                }
-                gravit.clear()
-            }
-        }
         val player = Bukkit.getPlayerExact(event.name)
         if (player != null && AuthHelper.isAuthorized(player.name, player.address!!.address.hostAddress)) {
             event.kickMessage = ChatHelper.format("&cПод ником &e${player.name} &cуже кто-то авторизован и играет!")
