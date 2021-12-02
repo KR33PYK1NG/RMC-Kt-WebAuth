@@ -3,9 +3,7 @@ package rmc.kt.plugins.webauth.helpers
 import org.apache.commons.lang.mutable.MutableLong
 import org.bukkit.Bukkit
 import org.bukkit.scheduler.BukkitTask
-import rmc.kt.plugins.core.helpers.LogHelper
 import rmc.kt.plugins.core.helpers.TaskHelper
-import rmc.kt.plugins.webauth.WebAuthPlugin
 
 /**
  * Разработано командой RMC, 2021
@@ -47,16 +45,6 @@ class AuthHelper {
 
         internal fun startExtensionTask() {
             TaskHelper.syncTimer(20) {
-                val gravit = WebAuthPlugin.tryFetchGravitAuths()
-                if (gravit.isNotEmpty()) {
-                    synchronized(gravit) {
-                        for (entry in gravit) {
-                            authorizeForMinute(entry.key, entry.value)
-                            LogHelper.debug("${entry.key} (ip: ${entry.value}) logged in through GravitLauncher")
-                        }
-                        gravit.clear()
-                    }
-                }
                 val iter = auths.iterator()
                 while (iter.hasNext()) {
                     val entry = iter.next()
