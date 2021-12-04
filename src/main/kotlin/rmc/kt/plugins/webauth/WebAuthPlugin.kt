@@ -131,6 +131,20 @@ class WebAuthPlugin: JavaPlugin() {
                     }
                 }
             }
+
+            override fun onPacketSending(event: PacketEvent?) {
+                event?.run {
+                    if (packetType == PacketType.Play.Client.CHAT
+                        && !AuthHelper.isAuthorized(player.name, player.address!!.address.hostAddress)) {
+                        val msg = (packet.strings.readSafely(0) ?: "").lowercase()
+                        if (!msg.endsWith("/login пароль")
+                            && !msg.endsWith("/register пароль")
+                            && !msg.startsWith("Ошибка:")) {
+                            isCancelled = true
+                        }
+                    }
+                }
+            }
         })
     }
 

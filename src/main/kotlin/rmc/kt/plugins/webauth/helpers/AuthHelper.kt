@@ -15,21 +15,44 @@ class AuthHelper {
         private val auths = mutableMapOf<Pair<String, String>, MutableLong>()
         private val tasks = mutableMapOf<String, BukkitTask>()
 
+        /**
+         * Проверяет, авторизован ли игрок под таким IP.
+         *
+         * @param username Ник игрока
+         * @param address IP игрока
+         */
         @JvmStatic
         fun isAuthorized(username: String, address: String): Boolean {
             return !isExpired(auths.get(Pair(username, address)))
         }
 
+        /**
+         * Авторизует игрока под таким IP на следующую минуту.
+         *
+         * @param username Ник игрока
+         * @param address IP игрока
+         */
         @JvmStatic
         fun authorizeForMinute(username: String, address: String) {
             extendAuthorization(auths.getOrPut(Pair(username, address)) { MutableLong() })
         }
 
+        /**
+         * Регистрирует новый таск авторизации для последующей отмены.
+         *
+         * @param username Ник игрока для привязки к таску
+         * @param task Регистрируемый таск
+         */
         @JvmStatic
         fun registerTask(username: String, task: BukkitTask) {
             tasks.put(username, task)
         }
 
+        /**
+         * Удаляет регистрацию таска авторизации и отменяет его.
+         *
+         * @param username Ник игрока, привязанный к таску
+         */
         @JvmStatic
         fun unregisterTaskIfActive(username: String) {
             tasks.remove(username)?.cancel()
