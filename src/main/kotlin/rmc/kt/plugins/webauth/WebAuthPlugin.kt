@@ -116,6 +116,9 @@ class WebAuthPlugin: JavaPlugin() {
                 && type != PacketType.Play.Client.KEEP_ALIVE) {
                 types.add(type)
             }
+            if (type == PacketType.Play.Server.CHAT) {
+                types.add(type)
+            }
         }
         ProtocolLibrary.getProtocolManager().addPacketListener(object: PacketAdapter(this, types) {
             override fun onPacketReceiving(event: PacketEvent?) {
