@@ -4,6 +4,7 @@ import com.comphenix.protocol.PacketType
 import com.comphenix.protocol.ProtocolLibrary
 import com.comphenix.protocol.events.PacketAdapter
 import com.comphenix.protocol.events.PacketEvent
+import com.comphenix.protocol.wrappers.WrappedChatComponent
 import org.bukkit.Bukkit
 import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
@@ -137,12 +138,12 @@ class WebAuthPlugin: JavaPlugin() {
 
             override fun onPacketSending(event: PacketEvent?) {
                 event?.run {
-                    if (packetType == PacketType.Play.Client.CHAT
+                    if (packetType == PacketType.Play.Server.CHAT
                         && !AuthHelper.isAuthorized(player.name, player.address!!.address.hostAddress)) {
-                        val msg = (packet.strings.readSafely(0) ?: "").lowercase()
-                        if (!msg.endsWith("/login пароль")
-                            && !msg.endsWith("/register пароль")
-                            && !msg.startsWith("Ошибка:")) {
+                        val json = (packet.chatComponents.readSafely(0) ?: WrappedChatComponent.fromText("")).json
+                        if (!json.contains("/login пароль\"")
+                            && !json.contains("/register пароль\"")
+                            && !json.contains("\"Ошибка:")) {
                             isCancelled = true
                         }
                     }

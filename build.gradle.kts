@@ -3,7 +3,7 @@ val rmcRepoPass: String by project
 
 val rmcGroup = "rmc.kt.plugins"
 val rmcArtifact = "webauth"
-val rmcVersion = "1.1.1"
+val rmcVersion = "1.1.2"
 val rmcBaseName = "RMC-Kt-WebAuth"
 
 group = rmcGroup
